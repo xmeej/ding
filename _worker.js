@@ -11,7 +11,10 @@ let addresses = [
 
 // 设置优选地址api接口
 let addressesapi = [
-	'https://raw.githubusercontent.com/xmeej/yxip/main/ip.txt'//可参考内容格式 自行搭建。
+	'https://raw.githubusercontent.com/xmeej/yxip/main/ip.txt',//可参考内容格式 自行搭建。
+	'https://addressesapi.090227.xyz/CloudFlareYes',
+	'https://addressesapi.090227.xyz/ct',
+	'https://addressesapi.090227.xyz/cmcc',
 ];
 
 let DLS = 4;//速度下限
