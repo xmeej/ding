@@ -18,8 +18,7 @@ let addressesapi = [
 
 let DLS = 2;//速度下限
 let addressescsv = [
-	'https://raw.githubusercontent.com/xmeej/yxip/main/8075-1710171531.csv',  
-	https://raw.githubusercontent.com/xmeej/yxip/main/8075-1710171531.csv
+	'https://raw.githubusercontent.com/xmeej/yxip/main/8075-1710171531.csv',	
 ];
 
 let subconverter = "dingyueqi.688818.xyz"; //在线订阅转换后端，目前使用肥羊的订阅转换功能。支持自建psub 可自行搭建https://github.com/bulianglin/psub
