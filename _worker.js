@@ -12,12 +12,12 @@ let addresses = [
 // 设置优选地址api接口
 let addressesapi = [
 	'https://raw.githubusercontent.com/xmeej/yxip/main/ip.txt',
-	'https://stock.hostmonit.com/CloudFlareYes',//可参考内容格式 自行搭建。
+	'https://addressesapi.090227.xyz/CloudFlareYes',//可参考内容格式 自行搭建。
 ];
 
 let DLS = 4;//速度下限
 let addressescsv = [
-	//'https://raw.githubusercontent.com/xmeej/yxip/main/8075-1710171531.csv', //iptest测速结果文件。
+	'https://raw.githubusercontent.com/xmeej/yxip/main/8075-1710171531.csv', //iptest测速结果文件。
 ];
 
 let subconverter = "api.v1.mk"; //在线订阅转换后端，目前使用肥羊的订阅转换功能。支持自建psub 可自行搭建https://github.com/bulianglin/psub
