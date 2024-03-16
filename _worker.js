@@ -113,65 +113,58 @@ async function getAddressesapi() {
 	return newAddressesapi;
 }
 
+
 async function getAddressescsv() {
-	if (!addressescsv || addressescsv.length === 0) {
-		return [];
-	}
-	
-	let newAddressescsv = [];
-	
-	for (const csvUrl of addressescsv) {
-		try {
-			const response = await fetch(csvUrl);
-		
-			if (!response.ok) {
-				console.error('获取CSV地址时出错:', response.status, response.statusText);
-				continue;
-			}
-		
-			const text = await response.text();// 使用正确的字符编码解析文本内容
-			let lines;
-			if (text.includes('\r\n')){
-				lines = text.split('\r\n');
-			} else {
-				lines = text.split('\n');
-			}
-		
-			// 检查CSV头部是否包含必需字段
-			const header = lines[0].split(',');
-			const tlsIndex = header.indexOf('TLS');
-			const speedIndex = header.length - 1; // 最后一个字段
-		
-			const ipAddressIndex = 0;// IP地址在 CSV 头部的位置
-			const portIndex = 1;// 端口在 CSV 头部的位置
-			const dataCenterIndex = tlsIndex + 1; // 数据中心是 TLS 的后一个字段
-		
-			if (tlsIndex === -1) {
-				console.error('CSV文件缺少必需的字段');
-				continue;
-			}
-		
-			// 从第二行开始遍历CSV行
-			for (let i = 1; i < lines.length; i++) {
-				const columns = lines[i].split(',');
-		
-				// 检查TLS是否为"TRUE"且速度大于DLS
-				if (columns[tlsIndex].toUpperCase() === 'TRUE' && parseFloat(columns[speedIndex]) > DLS) {
-					const ipAddress = columns[ipAddressIndex];
-					const port = columns[portIndex];
-					const dataCenter = columns[dataCenterIndex];
-			
-					const formattedAddress = `${ipAddress}:${port}#${dataCenter}`;
-					newAddressescsv.push(formattedAddress);
-				}
-			}
-		} catch (error) {
-			console.error('获取CSV地址时出错:', error);
-			continue;
-		}
-	}
-	
-	return newAddressescsv;
+  if (!addressescsv || addressescsv.length === 0) {
+    return [];
+  }
+  
+  let newAddressescsv = [];
+  
+  for (const csvUrl of addressescsv) {
+    try {
+      const response = await fetch(csvUrl);
+    
+      if (!response.ok) {
+        console.error('获取CSV地址时出错:', response.status, response.statusText);
+        continue;
+      }
+    
+      const text = await response.text();// 使用正确的字符编码解析文本内容
+      let lines;
+      if (text.includes('rn')){
+        lines = text.split('rn');
+      } else {
+        lines = text.split('n');
+      }
+    
+      // 检查CSV头部是否包含必需字段
+      const header = lines[0].split(',');
+      const speedIndex = header.length - 1; // 最后一个字段
+    
+      const ipAddressIndex = 0;// IP地址在 CSV 头部的位置
+      const portIndex = 1;// 端口在 CSV 头部的位置
+    
+      // 从第二行开始遍历CSV行
+      for (let i = 1; i < lines.length; i++) {
+        const columns = lines[i].split(',');
+    
+        // 检查速度字段是否大于DLS
+        if (parseFloat(columns[speedIndex]) > DLS) {
+          const ipAddress = columns[ipAddressIndex];
+          const port = columns[portIndex];
+      
+          const formattedAddress = ${ipAddress}:${port};
+          newAddressescsv.push(formattedAddress);
+        }
+      }
+    } catch (error) {
+      console.error('获取CSV地址时出错:', error);
+      continue;
+    }
+  }
+  
+  return newAddressescsv;
 }
 
 let protocol;
