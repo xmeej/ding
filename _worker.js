@@ -12,13 +12,12 @@ let addresses = [
 // 设置优选地址api接口
 let addressesapi = [
 	'https://raw.githubusercontent.com/xmeej/yxip/main/ip.txt',
-	'https://addressesapi.090227.xyz/CloudFlareYes',
-
+	'https://stock.hostmonit.com/CloudFlareYes',//可参考内容格式 自行搭建。
 ];
 
-let DLS = 2;//速度下限
+let DLS = 4;//速度下限
 let addressescsv = [
-	'https://raw.githubusercontent.com/xmeej/yxip/main/8075-1710171531.csv',	
+	//'https://raw.githubusercontent.com/xmeej/yxip/main/8075-1710171531.csv', //iptest测速结果文件。
 ];
 
 let subconverter = "api.v1.mk"; //在线订阅转换后端，目前使用肥羊的订阅转换功能。支持自建psub 可自行搭建https://github.com/bulianglin/psub
@@ -38,10 +37,10 @@ let CMproxyIPs = [
 let BotToken ='';
 let ChatID =''; 
 let proxyhosts = [//本地代理域名池
-	//'/',
+	//'ppfv2tl9veojd-maillazy.pages.dev',
 ];
 let proxyhostsURL = 'https://raw.githubusercontent.com/cmliu/CFcdnVmess2sub/main/proxyhosts';//在线代理域名池URL
-let EndPS = '老八云收集';//节点名备注内容
+let EndPS = '';//节点名备注内容
 
 let FileName = 'WorkerVless2sub';
 let SUBUpdateTime = 6; 
@@ -89,7 +88,12 @@ async function getAddressesapi() {
 			}
 		
 			const text = await response.text();
-			const lines = text.split('\n');
+			let lines;
+			if (text.includes('\r\n')){
+				lines = text.split('\r\n');
+			} else {
+				lines = text.split('\n');
+			}
 			const regex = /^(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})(:\d+)?(#.*)?$/;
 		
 			const apiAddresses = lines.map(line => {
@@ -124,7 +128,12 @@ async function getAddressescsv() {
 			}
 		
 			const text = await response.text();// 使用正确的字符编码解析文本内容
-			const lines = text.split('\n');
+			let lines;
+			if (text.includes('\r\n')){
+				lines = text.split('\r\n');
+			} else {
+				lines = text.split('\n');
+			}
 		
 			// 检查CSV头部是否包含必需字段
 			const header = lines[0].split(',');
